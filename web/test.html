@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Irin</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $("document").ready(function() {
+            $("#submitLogin").click(function() {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                console.log(password);
+                $.ajax({
+                    url: "http://127.0.0.1:12501/authen",
+                    type: 'GET',
+                    data: {
+                        "username" : username,
+                        "password" : password
+                    },
+                    dataType: 'json',
+                    error:  function(jqXHR,textStatus,errorThrown) {
+                        alert("ชื่อหรือรหัสผ่านผิด");
+                    },
+                    success: function(result) {
+                        sessionStorage.setItem("token", result.token);
+                        window.location = "./home.html";
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="loginBox">
+    Login<br>
+    <div class="loginForm">
+        <form id="logInForm">
+            <!--<label for="username">Username</label><br>!-->
+            <input type="input" name="username" id="username" placeholder="Username"><br>
+            <!--<label for="password">Password</label><br>-->
+            <input type="password" name="password" id="password" placeholder="Password"><br>
+            <input type="button" value="Login" id="submitLogin">
+        </form>
+    </div>
+</div>
+</body>
+</html>

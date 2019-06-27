@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Irin</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $("document").ready(function() {
+            $(".menuBackground").hide();
+            $(".leftMenu").animate({
+                left: '-270px',
+                opacity: '0'});
+            $(".menuBackground").click(function() {
+                $(".leftMenu").animate({
+                    left: '-270px',
+                    opacity: '0'});
+                $(".menuBackground").fadeOut(200);
+
+            });
+
+            $(".menuIcon").click(function() {
+                $(".leftMenu").animate({
+                    left: '0px',
+                    opacity: '1'});
+                $(".menuBackground").fadeIn(200).show();
+            });
+            $("#submitLogin").click(function() {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                console.log(password);
+                $.ajax({
+                    url: "http://127.0.0.1:12501/authen",
+                    type: 'GET',
+                    data: {
+                        "username" : username,
+                        "password" : password
+                    },
+                    dataType: 'json',
+                    error:  function(jqXHR,textStatus,errorThrown) {
+                        alert("ชื่อหรือรหัสผ่านผิด");
+                    },
+                    success: function(result) {
+
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="menuButton">
+            <img src="images/ic_menu.png" class="menuIcon"/>
+        </div>
+        <div class="logo">
+            Irin
+        </div>
+    </div>
+    <div class="menuBackground">
+        <div class="leftMenu">
+            <h2 style="margin: 0.5em;">Menu</h2>
+            <ol>
+                <li>test1</li>
+                <li>test2</li>
+                <li>test3</li>
+            </ol>
+        </div>
+    </div>
+    <div class="content">
+
+    </div>
+</body>
+</html>
